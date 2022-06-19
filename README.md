@@ -8,7 +8,7 @@ Build `upzhserif-v.tfm`:
 ```
 jfmutil zpl2tfm -u --lenient upzhserif-v.zpl
 ```
-Making sure that the fonts used in this document is reachable
+Making sure that the fonts used in this document are reachable
 ```
 ln -s /path/to/simsun.ttc simsun.ttc
 ln -s /path/to/simkai.ttf simkai.ttf
