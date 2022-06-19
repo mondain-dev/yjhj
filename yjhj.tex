@@ -1,0 +1,183 @@
+\documentclass[openany,twoside,12pt]{utbook}
+
+%% page size A6
+\usepackage{lltjp-geometry}
+\usepackage[a6paper, twoside]{geometry}
+
+%% CTeX headings
+\usepackage[fontset=windows, heading=true]{ctex}
+\usepackage{zhnumber}
+\ctexset{
+  chapter = {
+    name        = {} ,
+    number      = {}, %\zhnum{chapter} ,
+    % numbering   = false,
+    format      = \Large\bfseries ,
+    nameformat  = {} ,
+    titleformat = {} ,
+    aftername   = {}, % \quad ,
+    beforeskip  = 0 pt ,
+    afterskip   = 10 pt ,
+    afterindent = true ,
+    pagestyle   = main ,
+  },
+  section = {
+    numbering   = false ,
+    format      = {\large\bfseries},
+    beforeskip  = 5 pt ,
+    afterskip   = 10 pt ,
+    indent      = 26 pt ,
+    afterindent = true ,
+  } ,
+  subsection = {
+    numbering   = false ,
+    format      = {\bfseries},
+    % beforeskip  = 0 pt ,
+    % afterskip   = 5 pt ,
+    indent      = 26 pt ,
+    afterindent = true ,
+  }
+}
+
+%% draft watermark
+\usepackage[colorspec=0.9]{draftwatermark}
+\SetWatermarkText{未 經 校 訂}
+\SetWatermarkScale{0.4}
+
+%% ToC
+\usepackage[titles]{tocloft}
+\usepackage{everypage}
+\usepackage{calc}
+\AddEverypageHook{\addtocontents{toc}{
+\protect\cftsetpnumwidth{\widthof{\thepage} * \real{0.5}}
+}}
+\renewcommand{\cftchapfont}{\bfseries}
+\renewcommand{\cftchappagefont}{\small}
+\renewcommand{\cftsecpagefont}{\small}
+
+%%%%  add dots to TOC
+\renewcommand{\cftdot}{\raisebox{0.7ex}{.}}
+\renewcommand{\cftchapleader}{\cftdotfill{\cftdotsep}} 
+
+\usepackage{graphicx}
+% \usepackage{pxtatescale}
+\makeatletter
+\renewcommand{\cftchapfillnum}[1]{%
+    {\cftchapleader}\nobreak
+    \pbox<t>[\@pnumwidth][\cftpnumalign]{\scalebox{0.5}[1]{ \cftchappagefont #1}}\cftchapafterpnum\par
+  }
+\renewcommand{\cftsecfillnum}[1]{%
+    {\cftsecleader}\nobreak
+    \pbox<t>[\@pnumwidth][\cftpnumalign]{\scalebox{0.5}[1]{ \cftsecpagefont #1}}\cftsecafterpnum\par
+  }
+\makeatother
+\renewcommand{\contentsname}{目次}
+\setcounter{tocdepth}{1}
+
+%% page style
+\zhnumsetup{style=Traditional}
+\usepackage{titleps}
+\makeatletter
+\newcommand\frontchaptertitle{}
+\def\mainchapterheader{
+\if@mainmatter
+  \raisebox{\dimexpr-\height-\headsep\relax}[0pt]{%
+    \hbox to \textheight{%
+      \tate\hspace{3zh}\small
+      \ifnum\value{chapter} > \z@
+        要經彙集\CTEXthechapter·\chaptertitle
+      \else
+        \frontchaptertitle
+      \fi\hfill
+      \scalebox{0.5}[1]{\thepage}\hspace{4zh}}}%
+  \else
+  \raisebox{\dimexpr-\height-\headsep\relax}[0pt]{%
+    \hbox to \textheight{%
+      \tate\hspace{3zh}\small 要經彙集\chaptertitle\hfill
+      \thepage\hspace{4zh}}}%
+  \fi
+}
+    \newpagestyle{main}{%
+      \widenhead{30pt}{30pt}%
+      % TODO -- Set the headings of even pages
+      \sethead[][][{\mainchapterheader}]{\mainchapterheader}{}{}
+    }
+\makeatother
+\pagestyle{main}
+
+\addtolength{\textwidth}{\footskip}
+
+%% underlines
+\usepackage[normalem]{ulem}
+\newcommand\smallwave{\bgroup \markoverwith{\lower0.9zh\hbox{$\tilde{\null\kern0.25zw}$}}\ULon}
+\newcommand\BookTitle[1]{\hskip.15zw\smallwave{\kern-.1zw#1\kern-.1zw}\kern.1zw}
+
+%% fonts
+\usepackage[dvipdfmx,bookmarksnumbered]{hyperref}
+
+\usepackage{enumitem}
+
+%% misc
+\setlength\parindent{0pt}
+\usepackage{multicol}
+\usepackage{relsize}
+\usepackage{tabto}
+\usepackage[dvipsnames]{xcolor}
+% \usepackage[numbered]{bookmark}
+
+\usepackage{bbding}
+\newcommand{\pattee}{\raisebox{-0.1zh}{\textcolor{red}{\small\CrossMaltese}}}
+\newcommand{\versicle}{\hangindent=2zw \noindent {\small 啓：}\tabto{2zw}}
+\newcommand{\response}{{\small 應：}}
+\newcommand{\Response}{\hangindent=2zw \noindent {\small 應：}\tabto{2zw}}
+\newcommand{\cspace}{\hskip 1zh}
+
+\begin{document}
+\pagenumbering{gobble}
+\thispagestyle{empty}
+~\vfill{\begin{center}\Huge\it 要\quad 經\quad 彙\quad 集\end{center}}\vfill
+
+\newpage\thispagestyle{empty}
+\begin{minipage}<y>[htpb]{65mm}
+\vspace{9.5cm}
+{\centering \fontsize{7pt}{8pt}\selectfont 天主教上海教區《要經彙集》
+
+The source and scripts used to compose this document are available at \url{https://github.com/mondain-dev/yjhj}.\par}
+\end{minipage}
+\frontmatter
+\renewcommand\thepage{\rensuji{\arabic{page}}\relax}
+\begin{multicols}{2}
+\tableofcontents
+\end{multicols}
+
+\mainmatter
+\renewcommand\thepage{\zhdigits{\arabic{page}}\relax}
+
+% 1. 早课
+\input{tex/1.tex}
+% 2. 晚课
+\input{tex/2.tex}
+% 3. 彌撒規程
+\input{tex/3.tex}
+% 4.1. 主日經
+\input{tex/4.tex}
+% 4.2 瞻禮二
+\input{tex/5.tex}
+% 4.3 瞻禮三
+\input{tex/6.tex}
+% 4.4 瞻禮四
+\input{tex/7.tex}
+% 4.4 瞻禮五
+\input{tex/8.tex}
+% 4.4 瞻禮六
+\input{tex/9.tex}
+% 4.4 瞻禮七
+\input{tex/10.tex}
+
+\input{tex/11.tex}
+
+\input{tex/12.tex}
+
+\input{tex/13.tex}
+
+\end{document}
