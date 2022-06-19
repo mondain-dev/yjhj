@@ -4,7 +4,7 @@
 - Microsoft fonts `simsun.ttc`, `simhei.ttf`, `simkai.ttf`
 
 ## Build
-Build `upzhserif-v.tfm` (overwriting the CTeX default):
+Build `upzhserif-v.tfm` (overriding the CTeX default):
 ```
 jfmutil zpl2tfm -u --lenient upzhserif-v.zpl
 ```
