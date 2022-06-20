@@ -133,11 +133,13 @@
 \newcommand{\cspace}{\hskip 1zh}
 
 \begin{document}
+\newgeometry{lmargin=0pt,rmargin=0pt,left=5pt,right=0pt,top=0pt,bottom=0pt}
 \pagenumbering{gobble}
 \thispagestyle{empty}
-~\vfill{\begin{center}\Huge\it 要\quad 經\quad 彙\quad 集\end{center}}\vfill
+~\vfill {\Huge\it\centering 要\quad 經\quad 彙\quad 集\par~\par} \vfill
 
-\newpage\thispagestyle{empty}
+\newpage\restoregeometry
+\thispagestyle{empty}
 \begin{minipage}<y>[htpb]{65mm}
 \vspace{9.5cm}
 {\centering \fontsize{7pt}{8pt}\selectfont 天主教上海教區《要經彙集》
